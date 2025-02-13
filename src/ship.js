@@ -2,6 +2,7 @@
 
 class Ship {
     static shipTypes = {
+        1: "Fish Boat",
         2: "Patrol Boat",
         3: "Destroyer",
         4: "Submarine",
@@ -38,7 +39,7 @@ class Ship {
 }
 
 class PlayerShip extends Ship {
-    static availableLengths = [2, 2, 3, 4, 5];
+    static availableLengths = [0, 1, 2, 3, 4, 5];
     constructor(position="horizontal") {
         super(position);
     }
@@ -50,7 +51,7 @@ class PlayerShip extends Ship {
 }
 
 class ComputerShip extends Ship {
-    static availableLengths = [2, 2, 3, 4, 5];
+    static availableLengths = [1, 2, 3, 4, 5];
     constructor () {
         const randomPosition = Math.random() < 0.5 ? "horizontal" : "vertical";
         super(randomPosition);

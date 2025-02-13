@@ -1,5 +1,4 @@
 // gameBoard.js
-import { Ship, PlayerShip, ComputerShip } from "./ship.js";
 
 
 class GameBoard {
@@ -10,20 +9,22 @@ class GameBoard {
         this.missedAtks = [];
         this.shipBody = [];
         this.ships = [];
+        this.hits = [];
     }
     receiveAtk([atkX, atkY]) {
-        // Find the ship that contains the attack coordinates
         let hitShip = this.ships.find(ship => 
             ship.shipBody.some(([r, c]) => r === atkX && c === atkY)
         );
     
         if (hitShip) {
-            hitShip.hit([atkX, atkY]); // Call the ship's hit() method from ship.js
+            hitShip.hit([atkX, atkY]);
             if (hitShip.isSunk()) {
                 console.log(`${hitShip.type} has been sunk!`);
             }
+            return true;  // Return true if a ship was hit
         } else {
-            this.missedAtks.push([atkX, atkY]); // Store missed attack
+            this.missedAtks.push([atkX, atkY]);
+            return false; // Return false if it was a miss
         }
     }
 }
@@ -32,7 +33,13 @@ class PlayerGameBoard extends GameBoard {
     constructor() {
         super();
         
+        
     }   
+    reset() {
+        this.grid = Array.from({ length: 10 }, (_, row) =>
+            Array.from({ length: 10 }, (_, col) => [row, col])
+        );
+    }
     placeShip(startRow, startCol, ship) {
         let newShipBody = []; 
 
@@ -70,6 +77,13 @@ class ComputerGameBoard extends GameBoard {
     constructor() {
         super();
     } 
+
+    reset() {
+        this.grid = Array.from({ length: 10 }, (_, row) =>
+            Array.from({ length: 10 }, (_, col) => [row, col])
+        );
+    }
+    
     randPlaceShip(ship) {
         let validPlacement = false;
         let newShipBody = [];
@@ -114,4 +128,4 @@ class ComputerGameBoard extends GameBoard {
 
 }
 
-export { PlayerGameBoard, ComputerGameBoard }
+export { PlayerGameBoard, ComputerGameBoard };
