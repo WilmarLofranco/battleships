@@ -9,8 +9,9 @@
     "test:watch": "jest --watch",
     "build": "webpack",
     "dev": "webpack serve --config webpack.config.cjs",
-    "deploy": "git branch gh-pages && git checkout gh-pages && git merge main --no-edit && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin gh-pages && git checkout main",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "babel-jest": "^29.7.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.17.0",
+    "gh-pages": "^6.3.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
     "jest": "^29.7.0",
